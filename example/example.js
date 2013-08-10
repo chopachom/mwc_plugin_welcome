@@ -6,12 +6,14 @@ var mwcCore = require('mwc_kernel'),
 
 //setting up the config
 var MWC = mwcCore({
-  'hostUrl':'http://vvv.msk0.ru/',//'http://mwcwelcome.herokuapp.com/',
+  'hostUrl':'http://localhost:3000/', //'http://mwcwelcome.herokuapp.com/',
+  'mongoUrl': 'mongodb://localhost/mwc_plugin_welcome_dev',
+  port: 3000,
   'secret': ((process.env.secret)?(process.env.secret):'lAAAAalalala1'),
   'emailConfig':((process.env.emailConfig)?(process.env.emailConfig):'myemail@gmail.com:1234567'),
   "passport":{
-    "GITHUB_CLIENT_ID":"--insert-github-client-id-here--",
-    "GITHUB_CLIENT_SECRET": "--insert-github-client-secret-here--",
+    "GITHUB_CLIENT_ID":"--insert-github-consumer-key-here--",
+    "GITHUB_CLIENT_SECRET": "--insert-github-consumer-secret-here--",
     "TWITTER_CONSUMER_KEY":"--insert-twitter-consumer-key-here--",
     "TWITTER_CONSUMER_SECRET": "--insert-twitter-consumer-secret-here--",
     "FACEBOOK_APP_ID":"--insert-facebook-app-id-here--",
@@ -32,6 +34,13 @@ MWC.extendMiddleware(function(core){
 
 MWC.extendMiddleware(function(core){
   return express.static(path.join(__dirname, 'public'));
+});
+
+MWC.extendMiddleware( function(core){
+  return function(req, res, next) {
+    res.cookie('XSRF-TOKEN', req.session._csrf);
+    next();
+  }
 });
 
 MWC.usePlugin(require('./../index.js'));
@@ -60,6 +69,11 @@ MWC.extendRoutes(function (core) {
       }
     });
   });
+
+  core.app.get('/angular', function(req, res){
+    res.render('angular', {layout:'angular_layout'})
+  });
+
 });
 MWC.start();
 

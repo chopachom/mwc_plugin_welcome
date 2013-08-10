@@ -1,0 +1,9 @@
+<h1>Login</h1>
+<div class="alert alert-error" ng-show="errors.form">
+    <a class="close" data-dismiss="alert">×</a>
+    <strong>{{ errors.form }}</strong>
+</div>
+<input type="text" ng-model="username"/>
+<input type="email" ng-model="email"/>
+<input type="password" ng-model="password"/>
+<button class="btn" ng-click="login()">Log in</button>

@@ -4,7 +4,7 @@ exports.extendMiddleware = function (core) {
       next();
     } else {
       if (request.method === 'GET') {
-        if(/^\/auth/.test(request.url)){
+        if(/^\/(auth|angular)/.test(request.url)){
           next();
         } else {
           var parameters={

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app="AuthTest">
+<head>
+    <title></title>
+    <link type="text/css" href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link type="text/css" href="/css/bootstrap-responsive.min.css" rel="stylesheet"/>
+</head>
+<body ng-controller="MainCtrl">
+<div ng-view></div>
+<script type="text/javascript">
+    window.CONFIG = {
+        loginURL: '/auth/login',
+        logoutURL: '/auth/logout'
+    }
+</script>
+<script type="text/javascript" src="/bower_components/angular/angular.js"></script>
+<script type="text/javascript" src="/javascripts/app.js"></script>
+<script type="text/javascript" src="/javascripts/controllers/main.js"></script>
+<script type="text/javascript" src="/javascripts/services/auth.js"></script>
+<script type="text/javascript" src="/javascripts/services/configuration.js"></script>
+<script type="text/javascript" src="/javascripts/services/guard.js"></script>
+</body>
+</html>
