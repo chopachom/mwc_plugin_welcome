@@ -2,7 +2,8 @@ var mwcCore = require('mwc_kernel'),
   captcha = require('captcha'),
   express = require('express'),
   path = require('path'),
-  async = require('async');
+  async = require('async'),
+  util = require('util');
 
 //setting up the config
 var MWC = mwcCore({
@@ -22,7 +23,7 @@ var MWC = mwcCore({
 });
 
 MWC.extendApp(function(core){
-  core.app.locals.delimiters = '[[ ]]';
+//  core.app.locals.delimiters = '[[ ]]';
 });
 //MWC.usePlugin(require('mwc_plugin_notify_by_email'));
 MWC.usePlugin(require('mwc_plugin_hogan_express'));
@@ -71,7 +72,13 @@ MWC.extendRoutes(function (core) {
   });
 
   core.app.get('/angular', function(req, res){
-    res.render('angular', {layout:'angular_layout'})
+    //TODO: escape "/> in json
+    var user = JSON.parse(JSON.stringify(req.user));
+    delete user.password;
+    delete user.salt;
+    delete user.apiKey;
+    console.log('~~~~~~~~', user);
+    res.render('angular', {layout:'angular_layout', user: JSON.stringify(user)})
   });
 
 });

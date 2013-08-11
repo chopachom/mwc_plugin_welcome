@@ -55,11 +55,10 @@
     });
   };
 
-  AuthService.prototype.logIn = function(username, email, password){
+  AuthService.prototype.logIn = function(username, password){
     var _this = this;
     return this.$http.post(this.CONFIG.loginURL, {
       username: username,
-      email:email,
       password:password
     })
     .success(function(data, status, headers, config){

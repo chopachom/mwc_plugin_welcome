@@ -9,16 +9,14 @@
     }])
     .controller('LoginCtrl', ['$scope', 'authService', function($scope, authService){
       $scope.username = null;
-      $scope.email = null;
       $scope.password = null;
       $scope.errors = {
         username: [],
-        email: [],
         password: [],
         form: []
       };
       $scope.login = function(){
-        authService.logIn($scope.username, $scope.email, $scope.password).error(function(data, status, headers, config){
+        authService.logIn($scope.username, $scope.password).error(function(data, status, headers, config){
           $scope.errors = data.errors;
         })
       }

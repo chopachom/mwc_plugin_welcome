@@ -13,6 +13,9 @@
       function($rootScope, $location, authService){
         return {
           watch: function(){
+            if(window.USER){
+              authService.authenticate(window.USER);
+            }
             $rootScope.$on("$routeChangeStart", function (event, next, current) {
               if(!authService.isAuthenticated()){
                 //TODO: configurable login path
