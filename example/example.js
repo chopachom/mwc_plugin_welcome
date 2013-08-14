@@ -3,29 +3,14 @@ var mwcCore = require('mwc_kernel'),
   express = require('express'),
   path = require('path'),
   async = require('async'),
-  util = require('util');
+  util = require('util'),
+  ENV = process.env.NODE_ENV || 'development',
+  config = require('yaml-config').readConfig(__dirname + '/../config/config.yaml', ENV);
+
+config.emailConfig = process.env.EMAIL_CONFIG;
 
 //setting up the config
-var MWC = mwcCore({
-  'hostUrl':'http://localhost:3000/', //'http://mwcwelcome.herokuapp.com/',
-  'mongoUrl': 'mongodb://localhost/mwc_plugin_welcome_dev',
-  port: 3000,
-  'secret': ((process.env.secret)?(process.env.secret):'lAAAAalalala1'),
-  'emailConfig':((process.env.emailConfig)?(process.env.emailConfig):'myemail@gmail.com:1234567'),
-  "passport":{
-    "GITHUB_CLIENT_ID":"--insert-github-consumer-key-here--",
-    "GITHUB_CLIENT_SECRET": "--insert-github-consumer-secret-here--",
-    "TWITTER_CONSUMER_KEY":"--insert-twitter-consumer-key-here--",
-    "TWITTER_CONSUMER_SECRET": "--insert-twitter-consumer-secret-here--",
-    "FACEBOOK_APP_ID":"--insert-facebook-app-id-here--",
-    "FACEBOOK_APP_SECRET":"--insert-facebook-app-secret-here--"
-  }
-});
-
-MWC.extendApp(function(core){
-//  core.app.locals.delimiters = '[[ ]]';
-});
-//MWC.usePlugin(require('mwc_plugin_notify_by_email'));
+var MWC = mwcCore(config);
 MWC.usePlugin(require('mwc_plugin_hogan_express'));
 
 
@@ -73,18 +58,14 @@ MWC.extendRoutes(function (core) {
 
   core.app.get('/angular', function(req, res){
     //TODO: escape "/> in json
-    var user = JSON.parse(JSON.stringify(req.user));
+    var user = JSON.parse(JSON.stringify(req.user || {}));
     delete user.password;
     delete user.salt;
     delete user.apiKey;
-    console.log('~~~~~~~~', user);
     res.render('angular', {layout:'angular_layout', user: JSON.stringify(user)})
   });
 
 });
 MWC.start();
 
-MWC.on('notify',function(message){
-  console.log(message);
-});
 
