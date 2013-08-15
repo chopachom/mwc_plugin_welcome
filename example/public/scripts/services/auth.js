@@ -45,7 +45,7 @@
    * Logs user out. If service has onloggedout callback it will be called
    * after successful logout http request
    */
-  AuthService.prototype.logout = function(){
+  AuthService.prototype.logOut = function(){
     var _this = this;
     this.$http.post(this.CONFIG.logoutURL, '').success(function(){
       _this.user = null;

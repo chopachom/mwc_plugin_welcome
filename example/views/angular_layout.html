@@ -8,14 +8,11 @@
 <body ng-controller="MainCtrl">
 <div ng-view></div>
 <script type="text/javascript">
-
-</script>
-<script type="text/javascript">
     window.CONFIG = {
         loginURL: '/auth/login',
         logoutURL: '/auth/logout'
     };
-    window.USER = {{{ user }}};
+    window.USER = [[& user ]];
 </script>
 <script type="text/javascript" src="/bower_components/angular/angular.js"></script>
 <script type="text/javascript" src="/javascripts/app.js"></script>

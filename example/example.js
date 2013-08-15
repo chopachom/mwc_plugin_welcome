@@ -11,6 +11,13 @@ config.emailConfig = process.env.EMAIL_CONFIG;
 
 //setting up the config
 var MWC = mwcCore(config);
+
+
+MWC.extendApp(function(core){
+  core.app.locals.delimiters = '[[ ]]';
+});
+
+
 MWC.usePlugin(require('mwc_plugin_hogan_express'));
 
 
