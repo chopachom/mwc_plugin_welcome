@@ -9,16 +9,17 @@
 <div ng-view></div>
 <script type="text/javascript">
     window.CONFIG = {
+        signUpURL: '/auth/signup',
         loginURL: '/auth/login',
         logoutURL: '/auth/logout'
     };
     window.USER = [[& user ]];
 </script>
 <script type="text/javascript" src="/bower_components/angular/angular.js"></script>
-<script type="text/javascript" src="/javascripts/app.js"></script>
-<script type="text/javascript" src="/javascripts/controllers/main.js"></script>
-<script type="text/javascript" src="/javascripts/services/auth.js"></script>
-<script type="text/javascript" src="/javascripts/services/configuration.js"></script>
-<script type="text/javascript" src="/javascripts/services/guard.js"></script>
+<script type="text/javascript" src="/scripts/app.js"></script>
+<script type="text/javascript" src="/scripts/controllers/main.js"></script>
+<script type="text/javascript" src="/scripts/services/auth.js"></script>
+<script type="text/javascript" src="/scripts/services/configuration.js"></script>
+<script type="text/javascript" src="/scripts/services/guard.js"></script>
 </body>
 </html>

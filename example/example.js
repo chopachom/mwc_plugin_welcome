@@ -37,33 +37,9 @@ MWC.extendMiddleware( function(core){
 });
 
 MWC.usePlugin(require('./../index.js'));
+
 MWC.extendRoutes(function (core) {
-  core.app.get('/', function (request, response) {
-    response.render('index',{userAgent:request.headers['user-agent']})
-  });
-
-  core.app.get('/my', function (request, response) {
-    if (request.is('json')) {
-      response.json(request.user)
-    } else {
-      response.render('my', {user: request.user});
-    }
-  });
-
-  core.app.get('/team', function (request, response) {
-    request.model.Users.find({}, function (err, users) {
-      if (err) {
-        throw err;
-      }
-      if (request.query['json']) {
-        response.json(users);
-      } else {
-        response.render('team', {users: users});
-      }
-    });
-  });
-
-  core.app.get('/angular', function(req, res){
+  core.app.get('/', function(req, res){
     //TODO: escape "/> in json
     var user = JSON.parse(JSON.stringify(req.user || {}));
     delete user.password;

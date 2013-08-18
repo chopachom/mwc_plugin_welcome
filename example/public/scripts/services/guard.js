@@ -14,12 +14,12 @@
         return {
           watch: function(){
             //TODO: maybe we need a different service for that
-            if(window.USER && Object.keys(window.USER) > 0){
+            if(window.USER && Object.keys(window.USER).length > 0){
               authService.authenticate(window.USER);
             }
 
             $rootScope.$on("$routeChangeStart", function (event, next, current) {
-              if(!authService.isAuthenticated()){
+              if(next.loginRequired != false && !authService.isAuthenticated()){
                 //TODO: configurable login path
                 $location.url("/login");
               }

@@ -66,6 +66,15 @@
     })
   };
 
+  AuthService.prototype.signUp = function(username, email, password){
+    var _this = this;
+    return this.$http.post(this.CONFIG.signUpURL, {
+      username: username,
+      email: email,
+      password:password
+    })
+  };
+
   angular.module('AuthTest.Services')
     .factory('authService', ['$http', 'CONFIG',
       function($http, CONFIG){

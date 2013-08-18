@@ -9,6 +9,7 @@ describe('Service: authService', function () {
   // inject CONFIG value
   beforeEach(function(){
     angular.module('MyMocks', []).value('CONFIG', {
+      signUpURL:'/auth/signup',
       loginURL:'/auth/login',
       logoutURL:'/auth/logout'
     })
@@ -69,6 +70,14 @@ describe('Service: authService', function () {
       authService.logIn('joe', 'qweqwe');
       $httpBackend.flush();
       expect(authService.isAuthenticated()).toBe(false);
+    });
+  });
+
+  describe('#signup()', function(){
+    it('should POST `CONFIG.signUpURL`', function(){
+      $httpBackend.expectPOST(CONFIG.signUpURL, {username: 'joe', email: 'joe@doe.com', password: 'qweqwe'});
+      authService.signUp('joe', 'joe@doe.com', 'qweqwe');
+      $httpBackend.flush()
     });
   });
 

@@ -1,0 +1,14 @@
+<h1>Login</h1>
+<div class="alert alert-error" ng-show="errors.form">
+    <a class="close" data-dismiss="alert">×</a>
+    <strong>{{ errors.form }}</strong>
+</div>
+<div class="alert alert-error" ng-show="message">
+    {{ message }}
+</div>
+
+<input type="text" ng-model="username" placeholder="username">
+<input type="text" ng-model="email" placeholder="email">
+<input type="password" ng-model="password" placeholder="password">
+<button class="btn" ng-click="signup()">Signup in</button>
+<p><a href="/auth/github">Sign in by github</a></p>
